@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1>🧠 MindSync AI</h1>
+            <p>Your Intelligent Multimodal Sentiment Analysis Companion</p>
+            <p style="font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 2.5rem;">
+                Analyze your emotions through text, images, and voice. Get instant insights and personalized support to maintain your mental wellbeing.
+            </p>
+            <div class="hero-buttons">
+                <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-user-plus"></i>
+                    Get Started
+                </a>
+                <a href="{{ url_for('login') }}" class="btn btn-secondary btn-lg">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Login
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2 class="text-center mb-4">How It Works</h2>
+        <div class="grid grid-3">
+            <div class="card">
+                <div class="option-icon" style="margin: 0 auto 1.5rem;">
+                    <i class="fas fa-comment-dots"></i>
+                </div>
+                <h3>Text Analysis</h3>
+                <p style="color: var(--text-muted);">Share your thoughts through text and receive instant sentiment analysis with personalized suggestions.</p>
+            </div>
+            <div class="card">
+                <div class="option-icon" style="margin: 0 auto 1.5rem;">
+                    <i class="fas fa-image"></i>
+                </div>
+                <h3>Image Analysis</h3>
+                <p style="color: var(--text-muted);">Upload images with text quotes and let AI analyze the emotional content automatically.</p>
+            </div>
+            <div class="card">
+                <div class="option-icon" style="margin: 0 auto 1.5rem;">
+                    <i class="fas fa-microphone"></i>
+                </div>
+                <h3>Audio Analysis</h3>
+                <p style="color: var(--text-muted);">Speak your mind and get real-time voice-to-text sentiment analysis with caring support.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" style="background: var(--bg-card); padding: 5rem 0;">
+    <div class="container">
+        <div class="grid grid-2" style="align-items: center; gap: 4rem;">
+            <div>
+                <h2 style="margin-bottom: 1.5rem;">Your Mental Health Matters</h2>
+                <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+                    MindSync AI uses advanced AI technology to understand your emotional state and provide supportive guidance when you need it most.
+                </p>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;">
+                        <i class="fas fa-check-circle" style="color: var(--success); font-size: 1.5rem;"></i>
+                        <span>Real-time sentiment detection</span>
+                    </li>
+                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;">
+                        <i class="fas fa-check-circle" style="color: var(--success); font-size: 1.5rem;"></i>
+                        <span>Personalized support and suggestions</span>
+                    </li>
+                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;">
+                        <i class="fas fa-check-circle" style="color: var(--success); font-size: 1.5rem;"></i>
+                        <span>Instant email alerts for negative states</span>
+                    </li>
+                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;">
+                        <i class="fas fa-check-circle" style="color: var(--success); font-size: 1.5rem;"></i>
+                        <span>Track your emotional progress over time</span>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <div class="card">
+                    <h3 style="margin-bottom: 1.5rem;">📊 Analytics Dashboard</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+                        Visualize your emotional journey with interactive charts and insights. Track patterns and celebrate your progress.
+                    </p>
+                    <h3 style="margin-bottom: 1.5rem;">🔒 Private & Secure</h3>
+                    <p style="color: var(--text-muted);">
+                        Your data is encrypted and private. We respect your privacy and never share your information.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container text-center">
+        <h2 style="margin-bottom: 1rem;">Ready to Start Your Journey?</h2>
+        <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 2.5rem;">
+            Join MindSync AI today and take the first step towards better emotional awareness.
+        </p>
+        <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg">
+            <i class="fas fa-rocket"></i>
+            Create Free Account
+        </a>
+    </div>
+</section>
+
+<footer style="background: var(--bg-darker); padding: 3rem 0; border-top: 1px solid var(--border); margin-top: 5rem;">
+    <div class="container text-center">
+        <p style="color: var(--text-muted);">
+            © 2026 MindSync AI. Built with ❤️ for your mental wellbeing.
+        </p>
+        <div style="margin-top: 1rem;">
+            <a href="{{ url_for('admin_login') }}" style="color: var(--text-muted); text-decoration: none; font-size: 0.875rem;">
+                Admin Access
+            </a>
+        </div>
+    </div>
+</footer>
+{% endblock %}

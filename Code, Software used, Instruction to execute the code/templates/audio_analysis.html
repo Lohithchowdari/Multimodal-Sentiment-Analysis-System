@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Audio Analysis - MindSync AI{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <div class="text-center mb-4">
+                <div style="width: 100px; height: 100px; margin: 0 auto 1.5rem; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 24px; display: flex; align-items: center; justify-content: center; font-size: 3rem;">
+                    <i class="fas fa-microphone"></i>
+                </div>
+                <h1>Audio Sentiment Analysis</h1>
+                <p style="font-size: 1.1rem; color: var(--text-muted);">
+                    Speak your mind and receive real-time voice sentiment analysis
+                </p>
+            </div>
+            
+            <div class="card" id="recording-control">
+                <div class="audio-control">
+                    <h3 style="margin-bottom: 1.5rem;">Click the microphone to start</h3>
+                    
+                    <button id="mic-button" class="mic-button" onclick="toggleRecording()">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                    
+                    <div id="countdown" style="display: none; margin-top: 1.5rem;" class="countdown"></div>
+                    
+                    <p id="recording-status" style="margin-top: 1.5rem; font-size: 1.1rem; color: var(--text-muted);">
+                        Ready to record
+                    </p>
+                    
+                    <div class="mt-4">
+                        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i>
+                            Back to Dashboard
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="audio-result" style="display: none;">
+                <!-- Results will be dynamically inserted here -->
+            </div>
+            
+            <div class="card mt-3" style="background: rgba(236, 72, 153, 0.05);">
+                <h4><i class="fas fa-headphones"></i> How It Works</h4>
+                <ul style="color: var(--text-secondary); margin-top: 1rem; line-height: 2;">
+                    <li>🎤 Click the microphone to begin recording</li>
+                    <li>⏱️ A 3-2-1 countdown will start</li>
+                    <li>🗣️ Speak naturally for up to 30 seconds</li>
+                    <li>🤖 AI converts your speech to text and analyzes sentiment</li>
+                    <li>💬 Get instant feedback and supportive suggestions</li>
+                </ul>
+            </div>
+            
+            <div class="card mt-3" style="background: rgba(16, 185, 129, 0.05);">
+                <h4><i class="fas fa-volume-up"></i> Recording Tips</h4>
+                <ul style="color: var(--text-secondary); margin-top: 1rem; line-height: 2;">
+                    <li>✓ Find a quiet environment</li>
+                    <li>✓ Speak clearly at a normal pace</li>
+                    <li>✓ Keep your device's microphone close</li>
+                    <li>✓ Express yourself naturally and honestly</li>
+                    <li>✓ Click again to stop recording early</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="loading-overlay" style="display: none;">
+    <div class="spinner"></div>
+    <p style="margin-top: 1rem; font-size: 1.2rem;">Processing your audio...</p>
+</div>
+{% endblock %}

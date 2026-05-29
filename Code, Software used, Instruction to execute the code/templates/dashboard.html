@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - MindSync AI{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h1>Welcome, {{ current_user.email.split('@')[0] }}! 👋</h1>
+            <p style="font-size: 1.2rem; color: var(--text-muted);">How are you feeling today?</p>
+        </div>
+        
+        <!-- Stats Overview -->
+        <div class="grid grid-4 mb-4">
+            <div class="stats-card">
+                <i class="fas fa-chart-line" style="font-size: 2rem; color: var(--primary);"></i>
+                <div class="stats-number">{{ total }}</div>
+                <div class="stats-label">Total Analyses</div>
+            </div>
+            <div class="stats-card">
+                <i class="fas fa-smile" style="font-size: 2rem; color: var(--success);"></i>
+                <div class="stats-number stats-positive">{{ positive }}</div>
+                <div class="stats-label">Positive</div>
+            </div>
+            <div class="stats-card">
+                <i class="fas fa-meh" style="font-size: 2rem; color: var(--warning);"></i>
+                <div class="stats-number stats-neutral">{{ neutral }}</div>
+                <div class="stats-label">Neutral</div>
+            </div>
+            <div class="stats-card">
+                <i class="fas fa-frown" style="font-size: 2rem; color: var(--danger);"></i>
+                <div class="stats-number stats-negative">{{ negative }}</div>
+                <div class="stats-label">Negative</div>
+            </div>
+        </div>
+        
+        <!-- Analysis Options -->
+        <h2 class="text-center mb-4">Choose Your Analysis Method</h2>
+        <div class="dashboard-options">
+            <a href="{{ url_for('text_analysis') }}" class="option-card">
+                <div class="option-icon">
+                    <i class="fas fa-comment-dots"></i>
+                </div>
+                <h3>Text Analysis</h3>
+                <p>Share your thoughts through text and get instant sentiment analysis</p>
+            </a>
+            
+            <a href="{{ url_for('image_analysis') }}" class="option-card">
+                <div class="option-icon">
+                    <i class="fas fa-image"></i>
+                </div>
+                <h3>Image Analysis</h3>
+                <p>Upload an image with text quotes for automated sentiment detection</p>
+            </a>
+            
+            <a href="{{ url_for('audio_analysis') }}" class="option-card">
+                <div class="option-icon">
+                    <i class="fas fa-microphone"></i>
+                </div>
+                <h3>Audio Analysis</h3>
+                <p>Speak your mind and receive real-time voice sentiment analysis</p>
+            </a>
+        </div>
+        
+        <!-- Recent Activity -->
+        {% if recent %}
+        <div class="card mt-4">
+            <div class="card-header">
+                <h3><i class="fas fa-history"></i> Recent Activity</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Sentiment</th>
+                                <th>Time</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for pred in recent %}
+                            <tr>
+                                <td>
+                                    <i class="fas fa-{{ 'comment-dots' if pred.analysis_type == 'text' else 'image' if pred.analysis_type == 'image' else 'microphone' }}"></i>
+                                    {{ pred.analysis_type.title() }}
+                                </td>
+                                <td>
+                                    <span class="sentiment-badge sentiment-{{ pred.sentiment }}">
+                                        {{ pred.sentiment.title() }}
+                                    </span>
+                                </td>
+                                <td style="color: var(--text-muted);">
+                                    {{ pred.timestamp.strftime('%b %d, %Y %I:%M %p') }}
+                                </td>
+                                <td>
+                                    <button onclick="alert('Suggestion: {{ pred.suggestion[:50] }}...')" class="btn btn-secondary" style="padding: 0.5rem 1rem;">
+                                        View Details
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center mt-3">
+                    <a href="{{ url_for('history') }}" class="btn btn-secondary">
+                        <i class="fas fa-list"></i>
+                        View Full History
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

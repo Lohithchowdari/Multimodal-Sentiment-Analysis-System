@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Login - MindSync AI{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div style="max-width: 500px; margin: 0 auto;">
+            <div class="card">
+                <div class="text-center mb-4">
+                    <div style="width: 80px; height: 80px; margin: 0 auto 1.5rem; background: linear-gradient(135deg, var(--danger), var(--accent)); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem;">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h2>Admin Access</h2>
+                    <p style="color: var(--text-muted); margin-top: 0.5rem;">Authorized personnel only</p>
+                </div>
+                
+                <form method="POST" action="{{ url_for('admin_login') }}">
+                    <div class="form-group">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" 
+                               id="username" 
+                               name="username" 
+                               class="form-control" 
+                               placeholder="Enter admin username"
+                               required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" 
+                               id="password" 
+                               name="password" 
+                               class="form-control" 
+                               placeholder="Enter admin password"
+                               required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-danger w-100 btn-lg">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Admin Login
+                    </button>
+                </form>
+                
+                <div class="text-center mt-4">
+                    <a href="{{ url_for('index') }}" style="color: var(--text-muted); text-decoration: none;">
+                        <i class="fas fa-arrow-left"></i>
+                        Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

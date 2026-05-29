@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Text Analysis - MindSync AI{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <div class="text-center mb-4">
+                <div style="width: 100px; height: 100px; margin: 0 auto 1.5rem; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 24px; display: flex; align-items: center; justify-content: center; font-size: 3rem;">
+                    <i class="fas fa-comment-dots"></i>
+                </div>
+                <h1>Text Sentiment Analysis</h1>
+                <p style="font-size: 1.1rem; color: var(--text-muted);">
+                    Share what's on your mind and let AI understand your emotional state
+                </p>
+            </div>
+            
+            <div class="card">
+                <form method="POST" action="{{ url_for('text_analysis') }}">
+                    <div class="form-group">
+                        <label for="text" class="form-label">
+                            <i class="fas fa-pen"></i> Your Message
+                        </label>
+                        <textarea 
+                            id="text" 
+                            name="text" 
+                            class="form-control" 
+                            placeholder="Type anything you want to share... your thoughts, feelings, or what's on your mind today."
+                            required
+                            rows="8"></textarea>
+                        <p style="font-size: 0.875rem; color: var(--text-muted); margin-top: 0.5rem;">
+                            <i class="fas fa-lock"></i> Your message is private and secure
+                        </p>
+                    </div>
+                    
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-paper-plane"></i>
+                            Analyze Sentiment
+                        </button>
+                        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary btn-lg">
+                            <i class="fas fa-arrow-left"></i>
+                            Back
+                        </a>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="card mt-3" style="background: rgba(99, 102, 241, 0.05);">
+                <h4><i class="fas fa-info-circle"></i> How It Works</h4>
+                <ul style="color: var(--text-secondary); margin-top: 1rem; line-height: 2;">
+                    <li>✨ Advanced AI analyzes your text for emotional tone</li>
+                    <li>🎯 Classifies sentiment as Positive, Neutral, or Negative</li>
+                    <li>💡 Provides personalized suggestions and support</li>
+                    <li>📧 Sends caring email alerts if negative sentiment detected</li>
+                    <li>📊 Tracks your emotional journey over time</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

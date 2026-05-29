@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}Analytics - MindSync AI{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h1><i class="fas fa-chart-line"></i> Your Emotional Analytics</h1>
+            <p style="font-size: 1.1rem; color: var(--text-muted);">
+                Visualize your emotional journey and track your progress over time
+            </p>
+        </div>
+        
+        <div class="card mb-4">
+            <div class="card-header d-flex" style="justify-content: space-between; align-items: center;">
+                <h3><i class="fas fa-calendar-alt"></i> Time Period</h3>
+                <select id="days-select" onchange="loadAnalytics()" class="form-control" style="width: auto;">
+                    <option value="7">Last 7 Days</option>
+                    <option value="30" selected>Last 30 Days</option>
+                    <option value="60">Last 60 Days</option>
+                    <option value="90">Last 90 Days</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="grid grid-2 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-chart-area"></i> Sentiment Timeline</h3>
+                    <p style="color: var(--text-muted); font-size: 0.875rem; margin-top: 0.5rem;">
+                        Track how your emotional state has changed over time
+                    </p>
+                </div>
+                <div class="card-body">
+                    <div style="height: 300px;">
+                        <canvas id="timeline-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-chart-pie"></i> Analysis Type Distribution</h3>
+                    <p style="color: var(--text-muted); font-size: 0.875rem; margin-top: 0.5rem;">
+                        How you prefer to express yourself
+                    </p>
+                </div>
+                <div class="card-body">
+                    <div style="height: 300px; display: flex; align-items: center; justify-content: center;">
+                        <canvas id="distribution-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid grid-3 mb-4">
+            <div class="card" style="background: rgba(16, 185, 129, 0.1); border-color: var(--success);">
+                <div class="text-center">
+                    <i class="fas fa-smile" style="font-size: 3rem; color: var(--success); margin-bottom: 1rem;"></i>
+                    <h3 style="color: var(--success);">Positive Days</h3>
+                    <p style="color: var(--text-secondary); margin-top: 0.5rem;">
+                        Days when your overall sentiment was positive
+                    </p>
+                </div>
+            </div>
+            
+            <div class="card" style="background: rgba(245, 158, 11, 0.1); border-color: var(--warning);">
+                <div class="text-center">
+                    <i class="fas fa-meh" style="font-size: 3rem; color: var(--warning); margin-bottom: 1rem;"></i>
+                    <h3 style="color: var(--warning);">Neutral Days</h3>
+                    <p style="color: var(--text-secondary); margin-top: 0.5rem;">
+                        Days with balanced or neutral emotional states
+                    </p>
+                </div>
+            </div>
+            
+            <div class="card" style="background: rgba(239, 68, 68, 0.1); border-color: var(--danger);">
+                <div class="text-center">
+                    <i class="fas fa-frown" style="font-size: 3rem; color: var(--danger); margin-bottom: 1rem;"></i>
+                    <h3 style="color: var(--danger);">Challenging Days</h3>
+                    <p style="color: var(--text-secondary); margin-top: 0.5rem;">
+                        Days when you needed extra support
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));">
+            <div class="text-center">
+                <h3><i class="fas fa-lightbulb"></i> Insights</h3>
+                <p style="color: var(--text-secondary); max-width: 700px; margin: 1rem auto 0;">
+                    Your emotional journey is unique and valuable. These analytics help you understand patterns, celebrate progress, and identify when you might need extra support. Remember, it's okay to have ups and downs – they're all part of being human.
+                </p>
+            </div>
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i>
+                Back to Dashboard
+            </a>
+            <a href="{{ url_for('history') }}" class="btn btn-primary">
+                <i class="fas fa-history"></i>
+                View History
+            </a>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Load analytics on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        loadAnalytics();
+    });
+</script>
+{% endblock %}

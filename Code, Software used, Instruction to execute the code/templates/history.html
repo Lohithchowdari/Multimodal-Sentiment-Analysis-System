@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}History - MindSync AI{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h1><i class="fas fa-history"></i> Your Analysis History</h1>
+            <p style="font-size: 1.1rem; color: var(--text-muted);">
+                Review your emotional journey and past analyses
+            </p>
+        </div>
+        
+        <div class="card">
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Content Preview</th>
+                            <th>Sentiment</th>
+                            <th>Time</th>
+                            <th>Email Sent</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if predictions.items %}
+                            {% for pred in predictions.items %}
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-center gap-2">
+                                        <i class="fas fa-{{ 'comment-dots' if pred.analysis_type == 'text' else 'image' if pred.analysis_type == 'image' else 'microphone' }}" 
+                                           style="font-size: 1.5rem; color: var(--primary);"></i>
+                                        <strong>{{ pred.analysis_type.title() }}</strong>
+                                    </div>
+                                </td>
+                                <td style="max-width: 300px;">
+                                    <p style="color: var(--text-secondary); margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                        {{ pred.input_data[:80] }}{% if pred.input_data|length > 80 %}...{% endif %}
+                                    </p>
+                                </td>
+                                <td>
+                                    <span class="sentiment-badge sentiment-{{ pred.sentiment }}">
+                                        {% if pred.sentiment == 'positive' %}
+                                            <i class="fas fa-smile"></i>
+                                        {% elif pred.sentiment == 'neutral' %}
+                                            <i class="fas fa-meh"></i>
+                                        {% else %}
+                                            <i class="fas fa-frown"></i>
+                                        {% endif %}
+                                        {{ pred.sentiment.title() }}
+                                    </span>
+                                </td>
+                                <td style="color: var(--text-muted);">
+                                    {{ pred.timestamp.strftime('%b %d, %Y') }}<br>
+                                    <small>{{ pred.timestamp.strftime('%I:%M %p') }}</small>
+                                </td>
+                                <td>
+                                    {% if pred.email_sent %}
+                                        <i class="fas fa-check-circle" style="color: var(--success); font-size: 1.5rem;"></i>
+                                    {% else %}
+                                        <i class="fas fa-minus-circle" style="color: var(--text-muted);"></i>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="5" class="text-center" style="padding: 3rem;">
+                                    <i class="fas fa-inbox" style="font-size: 3rem; color: var(--text-muted); margin-bottom: 1rem; display: block;"></i>
+                                    <p style="color: var(--text-muted); font-size: 1.1rem;">
+                                        No analyses yet. Start by analyzing your first text, image, or audio!
+                                    </p>
+                                    <a href="{{ url_for('dashboard') }}" class="btn btn-primary mt-3">
+                                        <i class="fas fa-plus"></i>
+                                        Start Analyzing
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+            
+            {% if predictions.pages > 1 %}
+            <div class="pagination">
+                {% if predictions.has_prev %}
+                    <a href="{{ url_for('history', page=predictions.prev_num) }}" class="page-link">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                {% endif %}
+                
+                {% for page_num in predictions.iter_pages(left_edge=1, right_edge=1, left_current=2, right_current=2) %}
+                    {% if page_num %}
+                        <a href="{{ url_for('history', page=page_num) }}" 
+                           class="page-link {% if page_num == predictions.page %}active{% endif %}">
+                            {{ page_num }}
+                        </a>
+                    {% else %}
+                        <span class="page-link" style="cursor: default;">...</span>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if predictions.has_next %}
+                    <a href="{{ url_for('history', page=predictions.next_num) }}" class="page-link">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i>
+                Back to Dashboard
+            </a>
+            <a href="{{ url_for('analytics') }}" class="btn btn-primary">
+                <i class="fas fa-chart-line"></i>
+                View Analytics
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

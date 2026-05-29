@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Image Analysis Result - MindSync AI{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="result-container">
+            <div class="result-card">
+                <div class="result-icon {{ sentiment }}">
+                    {% if sentiment == 'positive' %}
+                        😊
+                    {% elif sentiment == 'neutral' %}
+                        😐
+                    {% else %}
+                        😔
+                    {% endif %}
+                </div>
+                
+                <h2>Image Analysis Complete</h2>
+                
+                <div class="sentiment-badge sentiment-{{ sentiment }}">
+                    {% if sentiment == 'positive' %}
+                        <i class="fas fa-smile"></i> Positive Sentiment
+                    {% elif sentiment == 'neutral' %}
+                        <i class="fas fa-meh"></i> Neutral Sentiment
+                    {% else %}
+                        <i class="fas fa-frown"></i> Negative Sentiment
+                    {% endif %}
+                </div>
+                
+                <div class="suggestion-box">
+                    <h4>💡 Insight & Suggestion</h4>
+                    <p>{{ suggestion }}</p>
+                    
+                    {% if sentiment == 'negative' %}
+                    <div class="alert alert-error mt-3">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>Support Email Sent</strong>
+                            <p style="margin: 0.5rem 0 0 0; font-size: 0.875rem;">
+                                We've sent a caring support message to your email with additional resources and guidance.
+                            </p>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="card mt-3" style="background: var(--bg-darker);">
+                    <div class="d-flex align-center gap-2">
+                        <i class="fas fa-check-circle" style="color: var(--success); font-size: 1.5rem;"></i>
+                        <div>
+                            <h4 style="margin: 0;">Text Successfully Extracted</h4>
+                            <p style="color: var(--text-muted); margin: 0.5rem 0 0 0; font-size: 0.875rem;">
+                                AI analyzed the emotional content from your image
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4 d-flex gap-2 justify-center">
+                    <a href="{{ url_for('dashboard') }}" class="btn btn-primary">
+                        <i class="fas fa-home"></i>
+                        Back to Dashboard
+                    </a>
+                    <a href="{{ url_for('image_analysis') }}" class="btn btn-secondary">
+                        <i class="fas fa-redo"></i>
+                        Analyze Another Image
+                    </a>
+                    <a href="{{ url_for('history') }}" class="btn btn-secondary">
+                        <i class="fas fa-history"></i>
+                        View History
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

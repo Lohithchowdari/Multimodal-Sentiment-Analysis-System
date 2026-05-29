@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Analysis Result - MindSync AI{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="result-container">
+            <div class="result-card">
+                <div class="result-icon {{ sentiment }}">
+                    {% if sentiment == 'positive' %}
+                        😊
+                    {% elif sentiment == 'neutral' %}
+                        😐
+                    {% else %}
+                        😔
+                    {% endif %}
+                </div>
+                
+                <h2>Analysis Complete</h2>
+                
+                <div class="sentiment-badge sentiment-{{ sentiment }}">
+                    {% if sentiment == 'positive' %}
+                        <i class="fas fa-smile"></i> Positive Sentiment
+                    {% elif sentiment == 'neutral' %}
+                        <i class="fas fa-meh"></i> Neutral Sentiment
+                    {% else %}
+                        <i class="fas fa-frown"></i> Negative Sentiment
+                    {% endif %}
+                </div>
+                
+                <div class="suggestion-box">
+                    <h4>💡 Insight & Suggestion</h4>
+                    <p>{{ suggestion }}</p>
+                    
+                    {% if sentiment == 'negative' %}
+                    <div class="alert alert-error mt-3">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>Support Email Sent</strong>
+                            <p style="margin: 0.5rem 0 0 0; font-size: 0.875rem;">
+                                We've sent a caring support message to your email with additional resources and guidance.
+                            </p>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="card mt-3" style="background: var(--bg-darker); text-align: left;">
+                    <h4 style="margin-bottom: 1rem;"><i class="fas fa-quote-left"></i> Your Message</h4>
+                    <p style="color: var(--text-secondary); font-style: italic;">
+                        "{{ text[:200] }}{% if text|length > 200 %}...{% endif %}"
+                    </p>
+                </div>
+                
+                <div class="mt-4 d-flex gap-2 justify-center">
+                    <a href="{{ url_for('dashboard') }}" class="btn btn-primary">
+                        <i class="fas fa-home"></i>
+                        Back to Dashboard
+                    </a>
+                    <a href="{{ url_for('text_analysis') }}" class="btn btn-secondary">
+                        <i class="fas fa-redo"></i>
+                        Analyze Again
+                    </a>
+                    <a href="{{ url_for('history') }}" class="btn btn-secondary">
+                        <i class="fas fa-history"></i>
+                        View History
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
